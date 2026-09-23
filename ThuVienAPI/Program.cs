@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using ThuVienAPI.Data;
+
 namespace ThuVienAPI
 {
     public class Program
@@ -9,6 +12,11 @@ namespace ThuVienAPI
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
             var app = builder.Build();
 
