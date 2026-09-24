@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ThuVienAPI.Data;
+using ThuVienAPI.Repositories;
 
 namespace ThuVienAPI
 {
@@ -17,6 +18,7 @@ namespace ThuVienAPI
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddScoped<IBookRepository, SQLBookRepository>();
 
             var app = builder.Build();
             if (app.Environment.IsDevelopment())

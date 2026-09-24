@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "ThuVienAPI.Controllers.BooksController",
-    "Method": "ddBook",
+    "Method": "AddBook",
     "RelativePath": "api/Books/add-book",
     "HttpMethod": "POST",
     "IsController": true,
@@ -71,7 +71,7 @@
         "IsRequired": true
       },
       {
-        "Name": "addBookRequestDTO",
+        "Name": "bookDTO",
         "Type": "ThuVienAPI.Models.DTO.addBookRequestDTO",
         "IsRequired": true
       }
