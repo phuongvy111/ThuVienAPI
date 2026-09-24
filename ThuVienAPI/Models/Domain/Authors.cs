@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LapTrinhWeb2.Models.Domain
+namespace ThuVienAPI.Models.Domain
 {
     public class Authors
     {

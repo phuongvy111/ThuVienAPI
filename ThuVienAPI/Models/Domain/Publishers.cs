@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static System.Reflection.Metadata.BlobBuilder;
 
-namespace LapTrinhWeb2.Models.Domain
+namespace ThuVienAPI.Models.Domain
 {
     public class Publishers
     {

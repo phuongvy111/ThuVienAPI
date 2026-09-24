@@ -1,4 +1,4 @@
-﻿using LapTrinhWeb2.Models.Domain;
+﻿using ThuVienAPI.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace ThuVienAPI.Data
