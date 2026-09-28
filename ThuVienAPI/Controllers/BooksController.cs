@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using ThuVienAPI.Data;
 using ThuVienAPI.Models.DTO;
 using ThuVienAPI.Repositories;
+using ThuVienAPI.CustomActionFilter;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThuVienAPI.Controllers
 {
@@ -37,10 +39,15 @@ namespace ThuVienAPI.Controllers
             return Ok(bookWithIdDTO);
         }
         [HttpPost("add-book")]
+        [ValidateModel]
         public IActionResult AddBook([FromBody] addBookRequestDTO addBookRequestDTO)
         {
-            var bookAdd = _bookRepository.AddBook(addBookRequestDTO);
-            return Ok(bookAdd);
+            if (ModelState.IsValid)
+            {
+                var bookAdd = _bookRepository.AddBook(addBookRequestDTO);
+                return Ok(bookAdd);
+            }
+            else return BadRequest(ModelState);
         }
 
         [HttpPut("update-book-by-id/{id}")]
@@ -55,6 +62,33 @@ namespace ThuVienAPI.Controllers
             var deleteBook = _bookRepository.DeleteBookById(id);
             return Ok(deleteBook);
         }
+        #region Private methods 
+        private bool ValidateAddBook(addBookRequestDTO addBookRequestDTO)
+        {
+            if (addBookRequestDTO == null)
+            {
+                ModelState.AddModelError(nameof(addBookRequestDTO), $"Please add book   data"); 
+            return false;
+            }
+            // kiem tra Description NotNull 
+            if (string.IsNullOrEmpty(addBookRequestDTO.Description))
+            {
+                ModelState.AddModelError(nameof(addBookRequestDTO.Description),
+                $"{nameof(addBookRequestDTO.Description)} cannot be null");
+            }
+            // kiem tra rating (0,5) 
+            if (addBookRequestDTO.Rate < 0 || addBookRequestDTO.Rate > 5)
+            {
+                ModelState.AddModelError(nameof(addBookRequestDTO.Rate),
+                $"{nameof(addBookRequestDTO.Rate)} cannot be less than 0 and more than 5");
+            }
+            if (ModelState.ErrorCount > 0)
+            {
+                return false;
+            }
+            return true;
+        }
+        #endregion
     }
 
 }
