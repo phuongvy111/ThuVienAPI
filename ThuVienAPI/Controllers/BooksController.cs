@@ -24,10 +24,12 @@ namespace ThuVienAPI.Controllers
         }
 
         [HttpGet("get-all-books")]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery, [FromQuery] string? sortBy, [FromQuery] bool isAscending,
+            [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 100)
+
         {
             // su dung reposity pattern  
-            var allBooks = _bookRepository.GetAllBooks();
+            var allBooks = _bookRepository.GetAllBooks(filterOn,filterQuery,sortBy,isAscending, pageNumber, pageSize);
             return Ok(allBooks);
         }
 
@@ -42,7 +44,7 @@ namespace ThuVienAPI.Controllers
         [ValidateModel]
         public IActionResult AddBook([FromBody] addBookRequestDTO addBookRequestDTO)
         {
-            if (ModelState.IsValid)
+            if (ValidateAddBook(addBookRequestDTO))
             {
                 var bookAdd = _bookRepository.AddBook(addBookRequestDTO);
                 return Ok(bookAdd);
@@ -68,7 +70,7 @@ namespace ThuVienAPI.Controllers
             if (addBookRequestDTO == null)
             {
                 ModelState.AddModelError(nameof(addBookRequestDTO), $"Please add book   data"); 
-            return false;
+                return false;
             }
             // kiem tra Description NotNull 
             if (string.IsNullOrEmpty(addBookRequestDTO.Description))
@@ -77,15 +79,18 @@ namespace ThuVienAPI.Controllers
                 $"{nameof(addBookRequestDTO.Description)} cannot be null");
             }
             // kiem tra rating (0,5) 
-            if (addBookRequestDTO.Rate < 0 || addBookRequestDTO.Rate > 5)
+            if (addBookRequestDTO.Rate.HasValue && (addBookRequestDTO.Rate < 0 || addBookRequestDTO.Rate > 5))
             {
                 ModelState.AddModelError(nameof(addBookRequestDTO.Rate),
-                $"{nameof(addBookRequestDTO.Rate)} cannot be less than 0 and more than 5");
+                    $"{nameof(addBookRequestDTO.Rate)} cannot be less than 0 and more than 5");
             }
+
+            // 3. Nếu số lượng lỗi trong ModelState > 0 thì trả về false
             if (ModelState.ErrorCount > 0)
             {
                 return false;
             }
+
             return true;
         }
         #endregion

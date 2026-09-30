@@ -31,5 +31,6 @@ namespace ThuVienAPI.Data
         public DbSet<Book_Author> Books_Authors { get; set; }
 
         public DbSet<Publishers> Publishers { get; set; }
+        public object Book_Authors { get; internal set; }
     }
 }
