@@ -8,6 +8,7 @@ using ThuVienAPI.Repositories;
 using ThuVienAPI.CustomActionFilter;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.AspNetCore.Authorization;
+using System.Text.Json;
 
 namespace ThuVienAPI.Controllers
 {
@@ -18,11 +19,13 @@ namespace ThuVienAPI.Controllers
     {
         private readonly AppDbContext _dbContext;
         private readonly IBookRepository _bookRepository;
+        private readonly ILogger<BooksController> _logger;
 
-        public BooksController(AppDbContext dbContext, IBookRepository bookRepository)
+        public BooksController(AppDbContext dbContext, IBookRepository bookRepository, ILogger<BooksController> logger)
         {
             _dbContext = dbContext;
             _bookRepository = bookRepository;
+            _logger = logger;
         }
 
         [HttpGet("get-all-books")]
@@ -30,8 +33,12 @@ namespace ThuVienAPI.Controllers
             [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 100)
 
         {
+            _logger.LogInformation("GetAll Book Action method was invoked");
+            _logger.LogWarning("This is a warning log");
+            _logger.LogError("This is a error log");
             // su dung reposity pattern  
             var allBooks = _bookRepository.GetAllBooks(filterOn,filterQuery,sortBy,isAscending, pageNumber, pageSize);
+            _logger.LogInformation($"Finished GetAllBook request with data { JsonSerializer.Serialize(allBooks)} "); 
             return Ok(allBooks);
         }
 

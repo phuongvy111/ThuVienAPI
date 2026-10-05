@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 using ThuVienAPI.Data;
 using ThuVienAPI.Repositories;
@@ -15,7 +16,13 @@ namespace ThuVienAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            var _logger = new LoggerConfiguration()
+            .WriteTo.Console()// ghi ra console 
+            .WriteTo.File("Logs/Book_log.txt", rollingInterval: RollingInterval.Minute) //ghi ra file l?u trong th? m?c Logs
+            .MinimumLevel.Information()
+            .CreateLogger();
+            builder.Logging.ClearProviders();
+            builder.Logging.AddSerilog(_logger);
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
