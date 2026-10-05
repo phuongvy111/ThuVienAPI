@@ -7,11 +7,13 @@ using ThuVienAPI.Models.DTO;
 using ThuVienAPI.Repositories;
 using ThuVienAPI.CustomActionFilter;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ThuVienAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BooksController : ControllerBase
     {
         private readonly AppDbContext _dbContext;

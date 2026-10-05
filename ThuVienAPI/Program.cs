@@ -1,4 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using ThuVienAPI.Data;
 using ThuVienAPI.Repositories;
 
@@ -18,10 +22,47 @@ namespace ThuVienAPI
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+          
+            builder.Services.AddDbContext<BookAuthDbContext>(options => 
+            options.UseSqlServer(builder.Configuration.GetConnectionString("BookAuthConnection")));
+          
             builder.Services.AddScoped<IPublisherRepository, SQLPublisherRepository>();
+        
             builder.Services.AddScoped<IAuthorRepository, SQLAuthorRepository>();
+           
             builder.Services.AddScoped<IBookRepository, SQLBookRepository>();
 
+            builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+
+            builder.Services.AddIdentityCore<IdentityUser>()
+             .AddRoles<IdentityRole>()
+             .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("Book")
+             .AddEntityFrameworkStores<BookAuthDbContext>()
+             .AddDefaultTokenProviders();
+
+            builder.Services.Configure<IdentityOptions>(option =>
+            {
+                option.Password.RequireDigit = false;// Yêu c?u v? password ch?a ký s? không? 
+                option.Password.RequireLowercase = false;
+                option.Password.RequireNonAlphanumeric = false;
+                option.Password.RequireUppercase = false;
+                option.Password.RequiredLength = 6;
+                option.Password.RequiredUniqueChars = 1;
+            });
+
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option => option.TokenValidationParameters = new TokenValidationParameters
+{
+    ValidateIssuer = true,
+    ValidateAudience = true,
+    ValidateLifetime = true,
+    ValidateIssuerSigningKey = true,
+    ValidIssuer = builder.Configuration["Jwt:Issuer"],
+    ValidAudience = builder.Configuration["Jwt:Audience"],
+    ClockSkew = TimeSpan.Zero,
+    IssuerSigningKey = new SymmetricSecurityKey(
+Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+});
             var app = builder.Build();
             if (app.Environment.IsDevelopment())
             {
@@ -32,6 +73,8 @@ namespace ThuVienAPI
             // Configure the HTTP request pipeline.
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
