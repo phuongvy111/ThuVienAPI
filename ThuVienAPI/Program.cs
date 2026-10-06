@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
 using ThuVienAPI.Data;
@@ -25,7 +26,40 @@ namespace ThuVienAPI
             builder.Logging.AddSerilog(_logger);
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Book API",
+                    Version = "v1"
+                });
+                options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new
+            OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = JwtBearerDefaults.AuthenticationScheme
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+        new OpenApiSecurityScheme
+        {
+            Reference= new OpenApiReference
+            {
+                Type= ReferenceType.SecurityScheme,
+                Id= JwtBearerDefaults.AuthenticationScheme
+            },
+            Scheme = "Oauth2",
+            Name =JwtBearerDefaults.AuthenticationScheme,
+            In = ParameterLocation.Header
+        },
+        new List<string>()
+       }
+    });
+            });
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
@@ -40,6 +74,9 @@ namespace ThuVienAPI
             builder.Services.AddScoped<IBookRepository, SQLBookRepository>();
 
             builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+
+            builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddIdentityCore<IdentityUser>()
              .AddRoles<IdentityRole>()

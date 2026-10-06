@@ -1,0 +1,34 @@
+2026-10-06 09:40:36.563 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5232/api/Books/get-all-books - null null
+2026-10-06 09:40:36.813 +07:00 [INF] Executing endpoint 'ThuVienAPI.Controllers.BooksController.GetAll (ThuVienAPI)'
+2026-10-06 09:40:36.825 +07:00 [INF] Route matched with {action = "GetAll", controller = "Books"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAll(System.String, System.String, System.String, Boolean, Int32, Int32) on controller ThuVienAPI.Controllers.BooksController (ThuVienAPI).
+2026-10-06 09:40:36.858 +07:00 [INF] GetAll Book Action method was invoked
+2026-10-06 09:40:36.864 +07:00 [WRN] This is a warning log
+2026-10-06 09:40:36.872 +07:00 [ERR] This is a error log
+2026-10-06 09:40:37.408 +07:00 [WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+2026-10-06 09:40:37.414 +07:00 [WRN] The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+2026-10-06 09:40:37.784 +07:00 [INF] Executed DbCommand (93ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[Title], [t].[Description], [t].[IsRead], [t].[c], [t].[c0], [t].[Genre], [t].[CoverUrl], [t].[Name], [t].[Id0], [t0].[FullName], [t0].[Id], [t0].[Id0]
+FROM (
+    SELECT [b].[Id], [b].[Title], [b].[Description], [b].[IsRead], CASE
+        WHEN [b].[IsRead] = CAST(1 AS bit) THEN [b].[DateRead]
+        ELSE NULL
+    END AS [c], CASE
+        WHEN [b].[IsRead] = CAST(1 AS bit) THEN [b].[Rate]
+        ELSE NULL
+    END AS [c0], [b].[Genre], [b].[CoverUrl], [p].[Name], [p].[Id] AS [Id0]
+    FROM [Books] AS [b]
+    INNER JOIN [Publishers] AS [p] ON [b].[PublisherID] = [p].[Id]
+    ORDER BY (SELECT 1)
+    OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+) AS [t]
+LEFT JOIN (
+    SELECT [a].[FullName], [b0].[Id], [a].[Id] AS [Id0], [b0].[BookId]
+    FROM [Books_Authors] AS [b0]
+    INNER JOIN [Authors] AS [a] ON [b0].[AuthorId] = [a].[Id]
+) AS [t0] ON [t].[Id] = [t0].[BookId]
+ORDER BY [t].[Id], [t].[Id0], [t0].[Id]
+2026-10-06 09:40:37.906 +07:00 [INF] Finished GetAllBook request with data [{"Id":4,"Title":"Ch\u00FAng ta l\u00E0 l\u0169 qu\u1EF9","Description":"Truy\u1EC7n thi\u1EBFu nhi","IsRead":true,"DateRead":"2026-09-29T07:00:17.064","Rate":0,"Genre":"string","CoverUrl":"string","DateAdded":"0001-01-01T00:00:00","PublisherName":"NXB Tr\u1EBB","AuthorNames":[]},{"Id":6,"Title":"Chuy\u1EBFn xe cu\u1ED1i c\u00F9ng","Description":"Truy\u1EC7n ng\u00F4n t\u00ECnh","IsRead":true,"DateRead":"2026-09-29T07:06:59.511","Rate":0,"Genre":"string","CoverUrl":"string","DateAdded":"0001-01-01T00:00:00","PublisherName":"M\u1EB7t tr\u1EDDi nh\u1ECF","AuthorNames":[]},{"Id":7,"Title":"Hoa d\u1EA1i tr\u00EAn c\u1ECF non","Description":"Truy\u1EC7n ti\u1EC3u thuy\u1EBFt","IsRead":true,"DateRead":"2026-09-29T07:46:55.964","Rate":5,"Genre":"string","CoverUrl":"string","DateAdded":"0001-01-01T00:00:00","PublisherName":"M\u1EB7t tr\u1EDDi nh\u1ECF","AuthorNames":["Nguy\u1EC5n Ph\u01B0\u01A1ng Vy"]},{"Id":8,"Title":"Ch\u00FAng ta l\u00E0 l\u0169 qu\u00E3","Description":"Truy\u1EC7n thi\u1EBFu nhi","IsRead":true,"DateRead":"2026-09-29T07:49:35.1","Rate":0,"Genre":"string","CoverUrl":"string","DateAdded":"0001-01-01T00:00:00","PublisherName":"M\u1EB7t tr\u1EDDi nh\u1ECF","AuthorNames":[]},{"Id":9,"Title":"Ch\u00FAng ta l\u00E0 l\u0169 qua","Description":"string","IsRead":true,"DateRead":"2026-09-29T07:50:33.569","Rate":0,"Genre":"string","CoverUrl":"string","DateAdded":"0001-01-01T00:00:00","PublisherName":"NXB Tr\u1EBB","AuthorNames":[]},{"Id":10,"Title":"Hoa h\u1ED3ng c\u00F3 gai","Description":"Truy\u1EC7n thi\u1EBFu nhi","IsRead":true,"DateRead":"2026-09-29T08:58:04.077","Rate":5,"Genre":"string","CoverUrl":"string","DateAdded":"0001-01-01T00:00:00","PublisherName":"M\u1EB7t tr\u1EDDi nh\u1ECF","AuthorNames":["Nguy\u1EC5n Ph\u01B0\u01A1ng Vy"]}] 
+2026-10-06 09:40:37.917 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThuVienAPI.Models.DTO.BookWithAuthorAndPublisherDTO, ThuVienAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-10-06 09:40:37.931 +07:00 [INF] Executed action ThuVienAPI.Controllers.BooksController.GetAll (ThuVienAPI) in 1097.2052ms
+2026-10-06 09:40:37.936 +07:00 [INF] Executed endpoint 'ThuVienAPI.Controllers.BooksController.GetAll (ThuVienAPI)'
+2026-10-06 09:40:37.941 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5232/api/Books/get-all-books - 200 null application/json; charset=utf-8 1406.6005ms

@@ -1,0 +1,15 @@
+2026-10-06 09:37:45.361 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5232/api/User/Register - application/json 84
+2026-10-06 09:37:45.443 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-10-06 09:37:49.154 +07:00 [INF] Executing endpoint 'ThuVienAPI.Controllers.UserController.Register (ThuVienAPI)'
+2026-10-06 09:37:49.259 +07:00 [INF] Route matched with {action = "Register", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(ThuVienAPI.Models.DTO.RegisterRequestDTO) on controller ThuVienAPI.Controllers.UserController (ThuVienAPI).
+2026-10-06 09:37:50.773 +07:00 [INF] Executing BadRequestObjectResult, writing value of type 'System.String'.
+2026-10-06 09:37:50.797 +07:00 [INF] Executed action ThuVienAPI.Controllers.UserController.Register (ThuVienAPI) in 1503.2213ms
+2026-10-06 09:37:50.804 +07:00 [INF] Executed endpoint 'ThuVienAPI.Controllers.UserController.Register (ThuVienAPI)'
+2026-10-06 09:37:50.817 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5232/api/User/Register - 400 null text/plain; charset=utf-8 5456.6017ms
+2026-10-06 09:37:54.271 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5232/api/User/Register - application/json 84
+2026-10-06 09:37:54.308 +07:00 [INF] Executing endpoint 'ThuVienAPI.Controllers.UserController.Register (ThuVienAPI)'
+2026-10-06 09:37:54.338 +07:00 [INF] Route matched with {action = "Register", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(ThuVienAPI.Models.DTO.RegisterRequestDTO) on controller ThuVienAPI.Controllers.UserController (ThuVienAPI).
+2026-10-06 09:37:54.384 +07:00 [INF] Executing BadRequestObjectResult, writing value of type 'System.String'.
+2026-10-06 09:37:54.389 +07:00 [INF] Executed action ThuVienAPI.Controllers.UserController.Register (ThuVienAPI) in 43.3425ms
+2026-10-06 09:37:54.395 +07:00 [INF] Executed endpoint 'ThuVienAPI.Controllers.UserController.Register (ThuVienAPI)'
+2026-10-06 09:37:54.399 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5232/api/User/Register - 400 null text/plain; charset=utf-8 128.0424ms

@@ -1,0 +1,4 @@
+2026-10-06 08:55:37.492 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5232/api/Images/Upload - multipart/form-data; boundary=----WebKitFormBoundaryDKhs3B1tB8ioVCNo 472388
+2026-10-06 08:55:37.557 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-10-06 08:55:41.334 +07:00 [INF] Executing endpoint 'ThuVienAPI.Controllers.ImagesController.Upload (ThuVienAPI)'
+2026-10-06 08:55:41.439 +07:00 [INF] Route matched with {action = "Upload", controller = "Images"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Upload(ThuVienAPI.Models.DTO.ImageUploadRequestDTO) on controller ThuVienAPI.Controllers.ImagesController (ThuVienAPI).

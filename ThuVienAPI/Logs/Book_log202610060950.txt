@@ -1,0 +1,48 @@
+2026-10-06 09:50:04.167 +07:00 [INF] User profile is available. Using 'C:\Users\Admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-10-06 09:50:05.084 +07:00 [INF] Now listening on: http://localhost:5232
+2026-10-06 09:50:05.241 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-10-06 09:50:05.246 +07:00 [INF] Hosting environment: Development
+2026-10-06 09:50:05.249 +07:00 [INF] Content root path: D:\ThuVienAPI\ThuVienAPI\ThuVienAPI
+2026-10-06 09:50:05.496 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5232/swagger/index.html - null null
+2026-10-06 09:50:05.962 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5232/swagger/index.html - 200 null text/html;charset=utf-8 495.6391ms
+2026-10-06 09:50:05.968 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5232/_vs/browserLink - null null
+2026-10-06 09:50:05.982 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5232/_framework/aspnetcore-browser-refresh.js - null null
+2026-10-06 09:50:06.000 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5232/_framework/aspnetcore-browser-refresh.js - 200 13756 application/javascript; charset=utf-8 18.6504ms
+2026-10-06 09:50:06.065 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5232/_vs/browserLink - 200 null text/javascript; charset=UTF-8 99.2487ms
+2026-10-06 09:50:06.115 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5232/swagger/v1/swagger.json - null null
+2026-10-06 09:50:06.558 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5232/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 443.9565ms
+2026-10-06 09:50:25.014 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5232/api/Images/Upload - multipart/form-data; boundary=----WebKitFormBoundaryRM9SQhB9JkhokEGi 106736
+2026-10-06 09:50:25.052 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-10-06 09:50:25.319 +07:00 [INF] Executing endpoint 'ThuVienAPI.Controllers.ImagesController.Upload (ThuVienAPI)'
+2026-10-06 09:50:25.462 +07:00 [INF] Route matched with {action = "Upload", controller = "Images"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Upload(ThuVienAPI.Models.DTO.ImageUploadRequestDTO) on controller ThuVienAPI.Controllers.ImagesController (ThuVienAPI).
+2026-10-06 09:50:30.345 +07:00 [INF] Executed DbCommand (120ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Images] ([FileDescription], [FileExtension], [FileName], [FilePath], [FileSizeInBytes])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2026-10-06 09:50:30.504 +07:00 [INF] Executing OkObjectResult, writing value of type 'ThuVienAPI.Models.Domain.Image'.
+2026-10-06 09:50:30.608 +07:00 [INF] Executed action ThuVienAPI.Controllers.ImagesController.Upload (ThuVienAPI) in 5121.7795ms
+2026-10-06 09:50:30.617 +07:00 [INF] Executed endpoint 'ThuVienAPI.Controllers.ImagesController.Upload (ThuVienAPI)'
+2026-10-06 09:50:30.652 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5232/api/Images/Upload - 200 null application/json; charset=utf-8 5638.8969ms
+2026-10-06 09:50:41.066 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5232/api/Images - null null
+2026-10-06 09:50:41.093 +07:00 [INF] Executing endpoint 'ThuVienAPI.Controllers.ImagesController.GetAllInfomages (ThuVienAPI)'
+2026-10-06 09:50:41.107 +07:00 [INF] Route matched with {action = "GetAllInfomages", controller = "Images"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAllInfomages() on controller ThuVienAPI.Controllers.ImagesController (ThuVienAPI).
+2026-10-06 09:50:42.033 +07:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[FileDescription], [i].[FileExtension], [i].[FileName], [i].[FilePath], [i].[FileSizeInBytes]
+FROM [Images] AS [i]
+2026-10-06 09:50:42.061 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[ThuVienAPI.Models.Domain.Image, ThuVienAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-10-06 09:50:42.073 +07:00 [INF] Executed action ThuVienAPI.Controllers.ImagesController.GetAllInfomages (ThuVienAPI) in 956.9827ms
+2026-10-06 09:50:42.080 +07:00 [INF] Executed endpoint 'ThuVienAPI.Controllers.ImagesController.GetAllInfomages (ThuVienAPI)'
+2026-10-06 09:50:42.085 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5232/api/Images - 200 null application/json; charset=utf-8 1019.5627ms
+2026-10-06 09:50:57.643 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5232/api/Images/Download?id=1 - null null
+2026-10-06 09:50:57.673 +07:00 [INF] Executing endpoint 'ThuVienAPI.Controllers.ImagesController.DownloadImage (ThuVienAPI)'
+2026-10-06 09:50:57.681 +07:00 [INF] Route matched with {action = "DownloadImage", controller = "Images"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult DownloadImage(Int32) on controller ThuVienAPI.Controllers.ImagesController (ThuVienAPI).
+2026-10-06 09:50:58.102 +07:00 [INF] Executed DbCommand (34ms) [Parameters=[@__Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [i].[Id], [i].[FileDescription], [i].[FileExtension], [i].[FileName], [i].[FilePath], [i].[FileSizeInBytes]
+FROM [Images] AS [i]
+WHERE [i].[Id] = @__Id_0
+2026-10-06 09:50:58.122 +07:00 [INF] Executing FileContentResult, sending file with download name 'string.png' ...
+2026-10-06 09:50:58.153 +07:00 [INF] Executed action ThuVienAPI.Controllers.ImagesController.DownloadImage (ThuVienAPI) in 464.0886ms
+2026-10-06 09:50:58.158 +07:00 [INF] Executed endpoint 'ThuVienAPI.Controllers.ImagesController.DownloadImage (ThuVienAPI)'
+2026-10-06 09:50:58.164 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5232/api/Images/Download?id=1 - 200 106322 application/octet-stream 521.4958ms
